@@ -685,3 +685,140 @@ public class PaymentTest {
 - Polymorphism makes your Java code more flexible and extensible.
 - It's a crucial feature in achieving **code reusability** and **loose coupling**.
 - Mastering polymorphism will allow you to write **maintainable** and **scalable** Java applications.
+
+
+### Detailed Notes on **Abstraction** in Java
+
+**Abstraction** is one of the key concepts in Object-Oriented Programming (OOP) and refers to the process of hiding the implementation details from the user and showing only the essential features of the object. In Java, abstraction helps in reducing complexity and focusing on what an object does instead of how it does it.
+
+In simple terms, abstraction allows you to define **what** an object can do (its functionality) without needing to know how it achieves that functionality.
+
+### **1. What is Abstraction?**
+- **Definition**: Abstraction is the concept of exposing only the relevant details of an object while hiding the unnecessary implementation details. It is one of the four pillars of OOP, alongside **Encapsulation**, **Inheritance**, and **Polymorphism**.
+- **Purpose**: The goal of abstraction is to reduce complexity and allow the programmer to focus on the **interface** (what an object can do) rather than the **implementation** (how it does it).
+
+### **2. Types of Abstraction in Java**
+Abstraction in Java can be achieved in two ways:
+1. **Abstract Classes**
+2. **Interfaces**
+
+#### **2.1. Abstract Classes**
+An **abstract class** is a class that cannot be instantiated on its own and is meant to be extended by other classes. It allows you to define methods that must be implemented by subclasses (abstract methods), while also providing the option of defining methods with default behavior.
+
+- **Key Characteristics of Abstract Classes**:
+  - An abstract class can have **abstract methods** (methods without a body) and **concrete methods** (methods with a body).
+  - An abstract class cannot be instantiated, meaning you cannot create an object of an abstract class directly.
+  - Abstract methods in an abstract class must be implemented by any concrete (non-abstract) subclass.
+  - An abstract class can have **fields** and **constructors**.
+
+**Syntax of an Abstract Class**:
+```java
+abstract class Animal {
+    // Abstract method (no implementation)
+    abstract void sound();
+    
+    // Concrete method (with implementation)
+    void sleep() {
+        System.out.println("Animal is sleeping");
+    }
+}
+
+class Dog extends Animal {
+    // Providing implementation for abstract method
+    @Override
+    void sound() {
+        System.out.println("Dog barks");
+    }
+}
+
+public class Test {
+    public static void main(String[] args) {
+        Animal myDog = new Dog();
+        myDog.sound();  // Outputs: Dog barks
+        myDog.sleep();  // Outputs: Animal is sleeping
+    }
+}
+```
+
+In this example:
+- `sound()` is an abstract method that has no implementation in the `Animal` class.
+- The `Dog` class extends `Animal` and provides an implementation for the `sound()` method.
+- The `sleep()` method is a concrete method and is inherited by the `Dog` class.
+
+#### **2.2. Interfaces**
+An **interface** in Java is a reference type, similar to a class, that can contain only abstract methods (methods without a body) and constants. Interfaces provide a way to define **what** actions an object can perform, but not **how** they perform those actions.
+
+- **Key Characteristics of Interfaces**:
+  - All methods in an interface are implicitly **abstract** (until Java 8, when default and static methods were introduced).
+  - A class can implement multiple interfaces (supports **multiple inheritance**).
+  - An interface cannot have **constructors** or **instance fields**.
+  - Since Java 8, interfaces can also have **default methods** (methods with a body) and **static methods**.
+
+**Syntax of an Interface**:
+```java
+interface Animal {
+    // Abstract method (no implementation)
+    void sound();
+    
+    // Default method (with implementation)
+    default void sleep() {
+        System.out.println("Animal is sleeping");
+    }
+}
+
+class Dog implements Animal {
+    // Providing implementation for abstract method
+    @Override
+    public void sound() {
+        System.out.println("Dog barks");
+    }
+}
+
+public class Test {
+    public static void main(String[] args) {
+        Animal myDog = new Dog();
+        myDog.sound();  // Outputs: Dog barks
+        myDog.sleep();  // Outputs: Animal is sleeping
+    }
+}
+```
+
+In this example:
+- The `sound()` method is an abstract method in the `Animal` interface.
+- The `Dog` class implements the `Animal` interface and provides an implementation for the `sound()` method.
+- The `sleep()` method is a default method in the `Animal` interface, and it is inherited by the `Dog` class without needing to override it.
+
+### **3. Benefits of Abstraction**
+- **Reduces Complexity**: Abstraction helps in focusing only on the essential aspects of an object while hiding the unnecessary details, making it easier to work with complex systems.
+- **Enhances Flexibility**: By abstracting the functionality, you can change the implementation without affecting the code that uses the abstract class or interface.
+- **Promotes Code Reusability**: With abstraction, common functionality can be written once in a base class or interface and reused in derived classes.
+- **Decouples Code**: It allows developers to write code that is not tightly coupled to specific implementations, making the code easier to maintain and extend.
+
+### **4. Real-World Examples of Abstraction**
+1. **Bank Account**:
+   - You don’t need to know how the bank performs its internal operations (like maintaining balance, processing transactions). You only need to know that you can call methods like `deposit()`, `withdraw()`, and `getBalance()`. These methods represent the **abstract functionality** of a bank account.
+
+2. **Vehicle**:
+   - You don’t need to know the exact details of how a vehicle starts, accelerates, or stops. The abstract methods might include `start()`, `accelerate()`, and `stop()`, while the concrete implementations can vary based on whether the vehicle is a **Car**, **Bike**, or **Truck**.
+
+### **5. Abstract Class vs Interface**
+| Feature               | Abstract Class                         | Interface                           |
+|-----------------------|----------------------------------------|-------------------------------------|
+| **Methods**           | Can have both abstract and concrete methods | Can have only abstract methods (until Java 8) |
+| **Multiple Inheritance** | A class can extend only one abstract class | A class can implement multiple interfaces |
+| **Constructor**       | Can have constructors                  | Cannot have constructors           |
+| **Fields**            | Can have instance variables            | Can only have constants (public, static, final) |
+| **Default Method**    | Cannot have default methods             | Can have default methods (Java 8 and above) |
+| **Access Modifiers**  | Can have various access modifiers for methods (public, protected, private) | All methods are implicitly `public` |
+
+### **6. Key Concepts in Abstraction**
+- **Encapsulation**: While abstraction hides the implementation details, **encapsulation** wraps the data and methods into a single unit (class) and restricts direct access to the data. Often, abstraction and encapsulation go hand in hand in OOP.
+- **Interface Segregation Principle (ISP)**: In a well-designed system, abstraction via interfaces should focus on providing specific functionality, avoiding "fat" interfaces that try to do too much. This principle is part of the SOLID principles of object-oriented design.
+
+### **7. Conclusion**
+Abstraction in Java allows you to simplify complex systems by exposing only the necessary details. Through **abstract classes** and **interfaces**, Java provides powerful tools for abstraction, helping developers write cleaner, more maintainable, and more modular code.
+
+- **Abstract Classes** are best used when you have common functionality to share across subclasses and need to provide default behavior.
+- **Interfaces** are used when you want to specify a contract that multiple classes can implement, ensuring they provide certain methods.
+
+By mastering abstraction, you can design flexible, extensible, and reusable Java applications.
